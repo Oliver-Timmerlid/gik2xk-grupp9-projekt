@@ -1,49 +1,32 @@
 const router = require('express').Router();
 const db = require('../models');
-const validate = require('validate.js');
+const cartService = require('../services/cartService');
 
+// använder inte services KANSKE KAN TAS BORT
 router.get('/', (req, res) => {
 	db.cart.findAll().then((result) => {
 		res.send(result);
 	});
 });
 
-router.post('/', (req, res) => {
-	const cart = req.body;
-	const invalidData = validate(cart, constraints);
+//klar lägger till produkt i cartrow
+router.post('/addProduct', (req, res) => {
+	const productId = req.body.productId;
+	const userId = req.body.userId;
+	const amount = req.body.amount;
 
-	if (invalidData) {
-		res.status(400).json(invalidData);
-	} else {
-		db.cart.create(cart).then((result) => {
-			res.send(result);
-		});
-	}
+	cartService.addToCart(productId, userId, amount).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
 
-router.put('/', (req, res) => {
-	const cart = req.body;
-	const invalidData = validate(cart, constraints);
-	const id = cart.id;
-	if (invalidData || !id) {
-		res.status(400).json(invalidData || 'Id är obligatoriskt.');
-	} else {
-		db.cart
-			.update(cart, {
-				where: { id: cart.id },
-			})
-			.then((result) => {
-				res.send('Inlägget har uppdaterats.');
-			});
-	}
-});
+// klar, ta bort produkt från cartrow
+router.delete('/removeProduct', (req, res) => {
+	const productId = req.body.productId;
+	const userId = req.body.userId;
 
-router.delete('/', (req, res) => {
-	db.cart
-		.destroy({
-			where: { id: req.body.id },
-		})
-		.then((result) => {
-			res.json(`Produkten raderades ${result}`);
-		});
+	cartService.removeFromCart(productId, userId).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
+module.exports = router;

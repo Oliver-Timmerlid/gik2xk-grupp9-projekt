@@ -50,7 +50,7 @@ db.product.hasMany(db.rating, {
 	onDelete: 'CASCADE',
 });
 
-db.cart.belongsTo(db.user);
+db.cart.belongsTo(db.user, { foreignKey: { allowNull: false } });
 db.user.hasMany(db.cart, {
 	allowNull: false,
 	onDelete: 'CASCADE',

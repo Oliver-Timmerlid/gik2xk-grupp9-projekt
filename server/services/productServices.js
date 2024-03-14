@@ -5,6 +5,7 @@ const {
 	createResponseMessage,
 } = require('../helpers/responseHelper');
 const validate = require('validate.js');
+
 const constraints = {
 	title: {
 		length: {
@@ -16,22 +17,20 @@ const constraints = {
 	},
 };
 
+// klar
 async function getAll() {
 	try {
-		const allProducts = await db.product
-			.findAll
-			// {
-			// 	include: [db.rating],
-			// }
-			();
+		const allProducts = await db.product.findAll({
+			include: [db.rating],
+		});
 		return createResponseSuccess(
-			allProducts
-			// allProducts.map((product) => _formatProduct(product))
+			allProducts.map((product) => _formatProduct(product))
 		);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
+// klar tro
 async function create(product) {
 	const invalidData = validate(product, constraints);
 	if (invalidData) {
@@ -40,14 +39,36 @@ async function create(product) {
 	try {
 		const newProduct = await db.product.create(product);
 
-		// await _addTagToproduct(newProduct, product.tags);
 		return createResponseSuccess(newProduct);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
-function update() {}
 
+// klar
+async function update(product, id) {
+	const invalidData = validate(product, constraints);
+	if (!id) {
+		return createResponseError(422, 'Id är obligatoriskt');
+	}
+	if (invalidData) {
+		return createResponseError(422, invalidData);
+	}
+	try {
+		const existingProduct = await db.product.findOne({
+			where: { id },
+		});
+		if (!existingProduct) {
+			return createResponseError(404, 'Hittade ingen produkt att uppdatera.');
+		}
+		await db.product.update(product, { where: { id } });
+		return createResponseMessage(200, 'Produkten uppdaterades');
+	} catch (error) {
+		return createResponseError(error.status, error.message);
+	}
+}
+
+// klar
 async function destroy(id) {
 	if (!id) {
 		return createResponseError(422, 'Id är obligatoriskt');
@@ -62,12 +83,13 @@ async function destroy(id) {
 	}
 }
 
+// klar
 async function addRating(id, rating) {
 	if (!id) {
 		return createResponseError(422, 'Id är obligatoriskt');
 	}
 	try {
-		rating.ratingId = id;
+		rating.productId = id;
 		const newRating = await db.rating.create(rating);
 		return createResponseSuccess(newRating);
 	} catch (error) {
@@ -75,25 +97,20 @@ async function addRating(id, rating) {
 	}
 }
 
+// klar
 async function getById(id) {
 	try {
 		const product = await db.product.findOne({
 			where: { id },
-			include: [
-				db.product,
-				db.rating,
-				{
-					model: db.rating,
-					include: [db.product],
-				},
-			],
+			include: [db.rating],
 		});
-		return createResponseSuccess(product);
+		return createResponseSuccess(_formatProduct(product));
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
 
+// klar
 function _formatProduct(product) {
 	const cleanproduct = {
 		id: product.id,
@@ -103,12 +120,19 @@ function _formatProduct(product) {
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
 
-		rating: [],
+		ratings: [],
 	};
 
-	if (product.rating) {
-		product.rating.map((rating) => {
-			return (cleanproduct.rating = [rating.rating, ...cleanproduct.rating]);
+	if (product.ratings) {
+		cleanproduct.ratings = [];
+
+		product.ratings.map((rating) => {
+			return (cleanproduct.ratings = [
+				{
+					rating: rating.rating,
+				},
+				...cleanproduct.ratings,
+			]);
 		});
 		return cleanproduct;
 	}

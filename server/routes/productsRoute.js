@@ -1,75 +1,54 @@
 const router = require('express').Router();
-const db = require('../models');
-const validate = require('validate.js');
 const productService = require('../services/productServices');
 
-const constraints = {
-	title: {
-		length: {
-			minimum: 2,
-			maximum: 100,
-			tooShort: 'Titeln måste vara minst %{count} tecken lång. ',
-			tooLong: 'Titeln får vara max %{count} tecken lång. ',
-		},
-	},
-};
-
+// klar
 router.get('/', (req, res) => {
 	productService.getAll().then((result) => {
 		res.status(result.status).json(result.data);
 	});
 });
 
+// klar
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
-	// service?
-	productService.getByAuthor(id).then((result) => {
+	productService.getById(id).then((result) => {
 		res.status(result.status).json(result.data);
 	});
 });
 
+// klar
 router.post('/', (req, res) => {
 	const product = req.body;
-	const invalidData = validate(product, constraints);
-
-	if (invalidData) {
-		res.status(400).json(invalidData);
-	} else {
-		db.product.create(product).then((result) => {
-			res.send(result);
-		});
-	}
+	productService.create(product).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
 
+// klar, lägga rating på produkt
 router.post('/:id/addRating', (req, res) => {
-	//something
+	const rating = req.body;
+	const id = req.params.id;
+
+	productService.addRating(id, rating).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
 
-router.put('/', (req, res) => {
+//klar,
+router.put('/:id', (req, res) => {
 	const product = req.body;
-	const invalidData = validate(product, constraints);
-	const id = product.id;
-	if (invalidData || !id) {
-		res.status(400).json(invalidData || 'Id är obligatoriskt.');
-	} else {
-		db.product
-			.update(product, {
-				where: { id: product.id },
-			})
-			.then((result) => {
-				res.send('Inlägget har uppdaterats.');
-			});
-	}
+	const id = req.params.id;
+	productService.update(product, id).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
 
+// klar
 router.delete('/', (req, res) => {
-	db.product
-		.destroy({
-			where: { id: req.body.id },
-		})
-		.then((result) => {
-			res.json(`Produkten raderades ${result}`);
-		});
+	const id = req.body.id;
+	productService.destroy(id).then((result) => {
+		res.status(result.status).json(result.data);
+	});
 });
 
 module.exports = router;
