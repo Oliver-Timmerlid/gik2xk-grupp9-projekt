@@ -38,7 +38,7 @@ function App() {
 						</div>
 						<div>
 							<Button color="inherit">
-								<Link to="/">Home</Link>
+								<Link to="/products">Produkter</Link>
 							</Button>
 							<Button color="inherit">
 								<Link to="/users/:id/getCart">Kundvagn</Link>

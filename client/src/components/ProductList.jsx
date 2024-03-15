@@ -11,12 +11,16 @@ function ProductList({ pathname }) {
 		});
 	}, [pathname]);
 
+	console.log(products);
+	console.log(pathname);
+
 	return (
+		// <h2>hej</h2>
 		<ul>
 			{products?.length > 0 ? (
 				products.map((product) => (
 					<li key={`products_${product.id}`}>
-						<ProductItemSmall post={product} />
+						<ProductItemSmall product={product} />
 					</li>
 				))
 			) : (
