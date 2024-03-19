@@ -18,7 +18,6 @@ async function addToCart(product, userId, amount) {
 		console.log(cartId);
 
 		const newRow = await db.cartRow.upsert({
-			id: cartId,
 			productId: product,
 			amount: amount,
 			cartId: cartId,
@@ -29,6 +28,8 @@ async function addToCart(product, userId, amount) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+//
 
 // klar
 async function removeFromCart(product, userId) {

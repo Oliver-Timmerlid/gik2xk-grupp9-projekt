@@ -1,3 +1,5 @@
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
@@ -37,17 +39,35 @@ function App() {
 							</Typography>
 						</div>
 						<div>
-							<Button color="inherit">
-								<Link to="/products">Produkter</Link>
+							<Button
+								startIcon={<HomeIcon />}
+								color="inherit">
+								<Link
+									to="/"
+									className="link">
+									Home
+								</Link>
 							</Button>
-							<Button color="inherit">
-								<Link to="/users/:id/getCart">Kundvagn</Link>
+							<Button
+								startIcon={<ShoppingCartIcon />}
+								color="inherit">
+								<Link
+									to="/users/3/getCart"
+									className="link">
+									Kundvagn
+								</Link>
 							</Button>
-
+							{/* 
 							<Button color="inherit">Mikael</Button>
 							<Button color="inherit">Elin</Button>
-							<Button color="inherit">Oliver</Button>
-							<Button color="inherit">Robin</Button>
+
+							<Link
+								to="https://github.com/Oliver-Timmerlid"
+								className="link">
+								Oliver
+							</Link>
+
+							<Button color="inherit">Robin</Button> */}
 						</div>
 					</Toolbar>
 				</AppBar>

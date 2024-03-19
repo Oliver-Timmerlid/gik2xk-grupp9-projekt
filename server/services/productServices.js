@@ -61,7 +61,10 @@ async function update(product, id) {
 		if (!existingProduct) {
 			return createResponseError(404, 'Hittade ingen produkt att uppdatera.');
 		}
-		await db.product.update(product, { where: { id } });
+
+		await existingProduct.update(product);
+		await existingProduct.save();
+
 		return createResponseMessage(200, 'Produkten uppdaterades');
 	} catch (error) {
 		return createResponseError(error.status, error.message);
@@ -119,6 +122,7 @@ function _formatProduct(product) {
 		price: product.price,
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
+		imageUrl: product.imageUrl,
 
 		ratings: [],
 	};

@@ -6,28 +6,50 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import './ProductItemSmall.css';
+import HalfRating from './HalfRating';
+import ReadOnlyRating from './ReadOnlyRating';
+import { CardMedia, IconButton } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 function ProductItemSmall({ product }) {
+	let total = 0;
+
+	for (let i = 0; i < product.ratings.length; i++) {
+		total += product.ratings[i].rating;
+		console.log(product.title + '   ' + product.ratings[i].rating);
+	}
+	// console.log(product);
+	// console.log(product.ratings.length);
+	const ratingsValue = total / product.ratings.length;
+	console.log(product.title + ' avg: ' + ratingsValue);
+
+	const name = 'half-rating-read';
+
 	return (
 		<>
 			<Card
 				variant="outlined"
-				sx={{ mb: 4 }}>
+				sx={{ mb: 4, height: '100%' }}
+				//sx={{ height: '50%' }}
+				className="zoom">
 				<CardContent>
 					<Typography
 						variant="h5"
 						component="div">
 						{product.title}
 					</Typography>
+					<CardMedia
+						// sx={{ height: 140 }}
+						height="256"
+						component="img"
+						image={product.imageUrl}
+					/>
+
 					<Typography
 						variant="body2"
 						sx={{ textAlign: 'left' }}>
-						BILD
-					</Typography>
-					<Typography
-						variant="body2"
-						sx={{ textAlign: 'left' }}>
-						TEXT OM PRODUKTEN BRRRRRRRRRRRRRRR
+						{product.description}
 					</Typography>
 					<Typography
 						sx={{ mb: 1.5, textAlign: 'left' }}
@@ -36,10 +58,20 @@ function ProductItemSmall({ product }) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button size="small">
+					{/* <Button size="small">
 						<Link to={`/products/${product.id}`}>Learn More</Link>
-					</Button>
+					</Button> */}
+					<ReadOnlyRating
+						value={ratingsValue}
+						name={name}
+						readOnly
+					/>
 				</CardActions>
+				<IconButton
+					color="primary"
+					aria-label="add to shopping cart">
+					<AddShoppingCartIcon />
+				</IconButton>
 			</Card>
 		</>
 	);
