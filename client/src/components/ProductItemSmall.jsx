@@ -17,12 +17,9 @@ function ProductItemSmall({ product }) {
 
 	for (let i = 0; i < product.ratings.length; i++) {
 		total += product.ratings[i].rating;
-		console.log(product.title + '   ' + product.ratings[i].rating);
 	}
-	// console.log(product);
-	// console.log(product.ratings.length);
+
 	const ratingsValue = total / product.ratings.length;
-	console.log(product.title + ' avg: ' + ratingsValue);
 
 	const name = 'half-rating-read';
 
@@ -39,6 +36,7 @@ function ProductItemSmall({ product }) {
 						component="div">
 						{product.title}
 					</Typography>
+
 					<CardMedia
 						// sx={{ height: 140 }}
 						height="256"

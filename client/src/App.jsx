@@ -5,6 +5,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { Link, Outlet } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
 import {
 	Box,
 	AppBar,
@@ -35,7 +36,7 @@ function App() {
 								variant="h6"
 								component="div"
 								sx={{ flexGrow: 1, textAlign: 'left' }}>
-								Jerrys shop
+								Mikalicious shop
 							</Typography>
 						</div>
 						<div>
@@ -52,9 +53,19 @@ function App() {
 								startIcon={<ShoppingCartIcon />}
 								color="inherit">
 								<Link
-									to="/users/3/getCart"
+									to="/users/1/getCart"
 									className="link">
 									Kundvagn
+								</Link>
+							</Button>
+							<Button
+								startIcon={<EditIcon />}
+								color="inherit">
+								<Link
+									//FIXA!!
+									to="/products/new"
+									className="link">
+									Skapa ny produkt
 								</Link>
 							</Button>
 							{/* 

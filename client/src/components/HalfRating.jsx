@@ -9,6 +9,7 @@ export default function HalfRating({ value }) {
 			defaultValue={0}
 			precision={0.5}
 			value={value}
+			onChange={(data) => console.log(data.target.value)}
 		/>
 	);
 }

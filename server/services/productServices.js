@@ -62,7 +62,7 @@ async function update(product, id) {
 			return createResponseError(404, 'Hittade ingen produkt att uppdatera.');
 		}
 
-		await existingProduct.update(product);
+		await existingProduct.update(product, { where: { id } });
 		await existingProduct.save();
 
 		return createResponseMessage(200, 'Produkten uppdaterades');

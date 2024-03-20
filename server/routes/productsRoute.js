@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
 // klar, lägga rating på produkt
 router.post('/:id/addRating', (req, res) => {
 	const rating = req.body;
-	const id = req.params.id;
+	const id = req.body.id;
 
 	productService.addRating(id, rating).then((result) => {
 		res.status(result.status).json(result.data);
@@ -35,7 +35,7 @@ router.post('/:id/addRating', (req, res) => {
 });
 
 //klar,
-router.put('/:id', (req, res) => {
+router.put('/:id/edit', (req, res) => {
 	const product = req.body;
 	const id = req.params.id;
 	productService.update(product, id).then((result) => {

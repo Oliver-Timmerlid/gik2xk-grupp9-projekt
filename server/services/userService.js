@@ -47,7 +47,7 @@ const constraints = {
 async function getCart(id) {
 	try {
 		const cart = await db.cart.findOne({
-			where: { id },
+			where: { userId: id },
 			include: [
 				db.user,
 				db.product,
@@ -79,8 +79,8 @@ async function create(user) {
 		return createResponseError(422, invalidData);
 	}
 	try {
-		const user = await db.user.crete(user);
-		return createResponseSuccess(user);
+		const newUser = await db.user.create(user);
+		return createResponseSuccess(newUser);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}

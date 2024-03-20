@@ -28,7 +28,7 @@ export async function getOne(id) {
 
 export async function create(product) {
 	try {
-		const response = await axios.post('/products', product);
+		const response = await axios.post(`/products/${id}`, product);
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);
@@ -41,7 +41,7 @@ export async function create(product) {
 
 export async function update(product) {
 	try {
-		const response = await axios.put(`/products/${id}`);
+		const response = await axios.put(`/products/${id}/edit`, product);
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);
@@ -54,7 +54,7 @@ export async function update(product) {
 // ej klar
 export async function remove(id) {
 	try {
-		const response = await axios.delete(`/products`);
+		const response = await axios.delete('/products', { data: { id } });
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);
@@ -64,10 +64,12 @@ export async function remove(id) {
 		e?.response ? console.log(e.response.data) : console.log(e);
 	}
 }
-//Ej klar AddRating
-export async function addComment(postId, comment) {
+//klar AddRating
+export async function addRating(productId, rating) {
 	try {
-		const response = await axios.post(`/posts/${postId}/addComment`, comment);
+		const response = await axios.post(`/products/${productId}/addRating`, {
+			rating: rating,
+		});
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);

@@ -7,6 +7,7 @@ import {
 	Typography,
 	Box,
 	IconButton,
+	CardActions,
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addToCart } from '../services/CartService';
@@ -15,19 +16,22 @@ import axios from 'axios';
 import NumberInputIntroduction from './NumberInputIntroduction';
 import { unstable_useNumberInput as useNumberInput } from '@mui/base/unstable_useNumberInput';
 import NumberInput from './NumberInput';
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import { Link, useParams } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
+import { addRating } from '../services/ProductService';
 
 function ProductItemLarge({ product }) {
 	const [amount, setAmount] = useState(0);
-	// const [userId, setUserId] = useState(3);
-
-	const user = {
-		userId: 3,
-	};
-
+	const param = useParams();
 	const productToSend = {
-		userId: 3,
+		userId: 1,
 		productId: '',
 		amount: '',
+	};
+	const ratingToSend = {
+		rating: '',
 	};
 
 	const input = document.querySelectorAll('input');
@@ -38,31 +42,34 @@ function ProductItemLarge({ product }) {
 		});
 	});
 
-	// console.log(userId);
 	//------------------------------------
 	// anrop till axios addToCart
 	function onAddToCart(product, amount) {
 		productToSend.productId = product.id;
 		productToSend.amount = amount;
 
-		// console.log(productToSend);
 		addToCart(productToSend);
-		console.log('great success');
+		console.log(productToSend);
 	}
-
 	//------------------------------------
+
+	function onAddRating(rating) {
+		ratingToSend.rating = rating;
+
+		// console.log(id.id);
+		// console.log(rating);
+		addRating(param.id, rating);
+	}
 
 	//------------------------------------
 	// räkna rating
 	let total = 0;
 	for (let i = 0; i < product.ratings.length; i++) {
 		total += product.ratings[i].rating;
-		// console.log(product.title + '   ' + product.ratings[i].rating);
 	}
-	// console.log(product);
-	// console.log(product.ratings.length);
+
 	const ratingsValue = total / product.ratings.length;
-	// console.log(product.title + ' avg: ' + ratingsValue);
+
 	//------------------------------------
 
 	return (
@@ -82,36 +89,27 @@ function ProductItemLarge({ product }) {
 					component="img"
 					image={product.imageUrl}
 				/>
-				<NumberInputIntroduction
-				// 	blur={(event, newValue) =>
-				// 	console.log(`${event.type} event: the new value is ${newValue}`)
-				// }
-				/>
-				{/* <NumberInput
-					aria-label="Demo number input"
-					placeholder="Type a number…"
-					value={value}
-					onChange={(event, val) => setValue(val)}
-				/> */}
-				<IconButton
-					color="primary"
-					aria-label="add to shopping cart"
-					onClick={() => {
-						// const input = document.querySelectorAll('input');
-						// setAmount(input[0].value);
-
-						onAddToCart(product, amount);
-					}}>
-					<AddShoppingCartIcon />
-				</IconButton>
-
-				<HalfRating
-					value={ratingsValue}
-					onChange={(event, newValue) => {
-						// använda newValue för att skicka rating till produkt
-						// setValue(newValue);
-					}}
-				/>
+				<NumberInputIntroduction />
+				<CardActions>
+					<Rating
+						name="half-rating"
+						defaultValue={0}
+						precision={0.5}
+						value={ratingsValue}
+						onChange={(data) => onAddRating(data.target.value)}
+					/>
+					<Link to={`/products/${product.id}/edit`}>
+						<EditIcon />
+					</Link>
+					<IconButton
+						color="primary"
+						aria-label="add to shopping cart"
+						onClick={() => {
+							onAddToCart(product, amount);
+						}}>
+						<AddShoppingCartIcon />
+					</IconButton>
+				</CardActions>
 			</Card>
 		</Paper>
 	);
