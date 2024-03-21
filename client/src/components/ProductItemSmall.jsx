@@ -7,10 +7,12 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './ProductItemSmall.css';
+import './Palette.css';
 import HalfRating from './HalfRating';
 import ReadOnlyRating from './ReadOnlyRating';
 import { CardMedia, IconButton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { blueGrey } from '@mui/material/colors';
 
 function ProductItemSmall({ product }) {
 	let total = 0;
@@ -27,7 +29,13 @@ function ProductItemSmall({ product }) {
 		<>
 			<Card
 				variant="outlined"
-				sx={{ mb: 4, height: '100%' }}
+				sx={{
+					mb: 4,
+					height: '100%',
+					bgcolor: `${blueGrey[400]}`,
+					borderRadius: 7,
+					zIndex: 1,
+				}}
 				//sx={{ height: '50%' }}
 				className="zoom">
 				<CardContent>
@@ -44,15 +52,20 @@ function ProductItemSmall({ product }) {
 						image={product.imageUrl}
 					/>
 
-					<Typography
+					{/* <Typography
 						variant="body2"
 						sx={{ textAlign: 'left' }}>
 						{product.description}
-					</Typography>
+					</Typography> */}
 					<Typography
-						sx={{ mb: 1.5, textAlign: 'left' }}
+						sx={{
+							mb: 1.5,
+							textAlign: 'left',
+							fontSize: 20,
+							fontWeight: 'Bold',
+						}}
 						color="text.secondary">
-						Pris: {product.price}
+						Pris: ${product.price}
 					</Typography>
 				</CardContent>
 				<CardActions>
@@ -65,11 +78,11 @@ function ProductItemSmall({ product }) {
 						readOnly
 					/>
 				</CardActions>
-				<IconButton
+				{/* <IconButton
 					color="primary"
 					aria-label="add to shopping cart">
 					<AddShoppingCartIcon />
-				</IconButton>
+				</IconButton> */}
 			</Card>
 		</>
 	);

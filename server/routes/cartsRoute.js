@@ -29,4 +29,36 @@ router.delete('/removeProduct', (req, res) => {
 		res.status(result.status).json(result.data);
 	});
 });
+
+// updatera amount på en rad i cartrow
+router.put('/increaseAmount', async (req, res) => {
+	const productId = req.body.productId;
+	const userId = req.body.userId;
+
+	try {
+		const result = await cartService.increaseAmountInCart(productId, userId);
+		res.status(result.status).json(result.data);
+	} catch (error) {
+		res.status(error.status).json(error.message);
+	}
+});
+
+// minska amount på en rad i cartrow
+router.put('/decreaseAmount', async (req, res) => {
+	const productId = req.body.productId;
+	const userId = req.body.userId;
+	const amount = req.body.amount;
+
+	try {
+		if (amount === 1) {
+			const result = await cartService.removeFromCart(productId, userId);
+			res.status(result.status).json(result.data);
+		} else {
+			const result = await cartService.decreaseAmountInCart(productId, userId);
+			res.status(result.status).json(result.data);
+		}
+	} catch (error) {
+		res.status(error.status).json(error.message);
+	}
+});
 module.exports = router;

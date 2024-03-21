@@ -10,7 +10,7 @@ function Home() {
 				gutterBottom
 				sx={{ p: 5 }}
 				className="animate">
-				Big mike pleasure shop
+				Mike`s Blomsterhandel
 			</Typography>
 			<ProductList />
 		</>

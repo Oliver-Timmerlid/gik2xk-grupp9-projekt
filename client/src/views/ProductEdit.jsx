@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { grey } from '@mui/material/colors';
 
 function ProductEdit() {
 	const { id } = useParams();
@@ -70,9 +71,10 @@ function ProductEdit() {
 						label="Titel"
 						fullWidth
 						variant="outlined"
-						color="secondary"
+						color="text"
 						focused
-						sx={{ bgcolor: 'warning.light' }}
+						placeholder="Ange titel"
+						sx={{ bgcolor: `${grey[300]}` }}
 					/>
 				</Box>
 
@@ -84,12 +86,13 @@ function ProductEdit() {
 						minRows={5}
 						name="description"
 						id="description"
-						label="Description"
+						label="Beskrivning"
 						fullWidth
 						variant="outlined"
-						color="secondary"
+						color="text"
 						focused
-						sx={{ bgcolor: 'error.light' }}
+						placeholder="Ange beskrivning "
+						sx={{ bgcolor: `${grey[300]}` }}
 					/>
 				</Box>
 				<Box sx={{ pb: 2 }}>
@@ -101,13 +104,27 @@ function ProductEdit() {
 						label="Sökväg till bild"
 						fullWidth
 						variant="outlined"
-						color="secondary"
+						color="text"
 						focused
-						sx={{ bgcolor: 'success.light' }}
+						placeholder="Ange din bildURL"
+						sx={{ bgcolor: `${grey[300]}` }}
 					/>
 				</Box>
-				<Box>
-					<NumberInputIntroduction value={product.price} />
+
+				<Box sx={{ pb: 2 }}>
+					<TextField
+						value={product.price}
+						onChange={onChange}
+						name="price"
+						id="price"
+						label="Pris"
+						fullWidth
+						variant="outlined"
+						color="text"
+						focused
+						placeholder="Ange ditt pris"
+						sx={{ bgcolor: `${grey[300]}` }}
+					/>
 				</Box>
 				<Box
 					sx={{ mt: 2 }}

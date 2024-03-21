@@ -14,6 +14,7 @@ import {
 	Button,
 	Container,
 } from '@mui/material';
+import { blueGrey } from '@mui/material/colors';
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -21,7 +22,9 @@ function App() {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="fixed">
+				<AppBar
+					position="fixed"
+					sx={{ bgcolor: `${blueGrey[400]}` }}>
 					<Toolbar style={{ justifyContent: 'space-between' }}>
 						{/* <IconButton
 							size="large"
@@ -32,23 +35,17 @@ function App() {
 							<MenuIcon />
 						</IconButton> */}
 						<div>
-							<Typography
-								variant="h6"
-								component="div"
-								sx={{ flexGrow: 1, textAlign: 'left' }}>
-								Mikalicious shop
-							</Typography>
-						</div>
-						<div>
 							<Button
 								startIcon={<HomeIcon />}
 								color="inherit">
 								<Link
 									to="/"
 									className="link">
-									Home
+									Hem
 								</Link>
 							</Button>
+						</div>
+						<div>
 							<Button
 								startIcon={<ShoppingCartIcon />}
 								color="inherit">

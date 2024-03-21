@@ -1,7 +1,8 @@
 import { getCart } from '../services/UserService';
 import { useEffect, useState } from 'react';
-import CartRow from './CartRow';
-import { Box } from '@mui/material';
+import CartTable from './CartTable';
+import { Box, Container } from '@mui/material';
+import CartHeader from './CartHeader';
 
 function CartList({ pathname }) {
 	const [userId, setUserId] = useState(1);
@@ -15,13 +16,33 @@ function CartList({ pathname }) {
 		});
 	}, [pathname]);
 
+	const updateProducts = async () => {
+		const updatedCart = await getCart(userId);
+		setProducts(updatedCart.products);
+	};
+
 	return (
-		<Box sx={{ p: 2, mt: 5 }}>
-			<CartRow
-				products={products}
-				cart={cart}
-			/>
-		</Box>
+		<>
+			<Box>
+				<Box
+					sx={{
+						p: 2,
+						mt: 5,
+						mb: 2,
+						bgcolor: 'background.paper',
+						color: 'text.primary',
+						borderRadius: 2,
+					}}>
+					<CartHeader userId={userId} />
+				</Box>
+				{/* <Box sx={{ p: 2, mt: 5 }}> */}
+				<CartTable
+					products={products}
+					updateProducts={updateProducts}
+				/>
+				{/* </Box> */}
+			</Box>
+		</>
 	);
 }
 

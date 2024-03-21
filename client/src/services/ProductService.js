@@ -15,7 +15,7 @@ export async function getAll(endpoint = '/products') {
 
 export async function getOne(id) {
 	try {
-		const response = await axios.get(`/products/${id}`);
+		const response = await axios.get(`/products/${id}`, { data: { id } });
 		if (response.status === 200) return response.data;
 		else {
 			console.log(response.data);
@@ -28,7 +28,7 @@ export async function getOne(id) {
 
 export async function create(product) {
 	try {
-		const response = await axios.post(`/products/${id}`, product);
+		const response = await axios.post(`/products`, product);
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);
@@ -41,7 +41,7 @@ export async function create(product) {
 
 export async function update(product) {
 	try {
-		const response = await axios.put(`/products/${id}/edit`, product);
+		const response = await axios.put(`/products/${product.id}/edit`, product);
 		if (response.status === 200) return response.data;
 		else {
 			console.log(data);
@@ -67,7 +67,7 @@ export async function remove(id) {
 //klar AddRating
 export async function addRating(productId, rating) {
 	try {
-		const response = await axios.post(`/products/${productId}/addRating`, {
+		const response = await axios.post(`/products/${productId.id}/addRating`, {
 			rating: rating,
 		});
 		if (response.status === 200) return response.data;

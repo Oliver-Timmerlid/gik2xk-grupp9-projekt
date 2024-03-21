@@ -5,7 +5,8 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+	/*DO NOT TOUCH, färg klar!*/
+	background-color: #37474f;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;

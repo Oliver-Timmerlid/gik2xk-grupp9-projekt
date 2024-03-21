@@ -21,6 +21,7 @@ import Button from '@mui/material/Button';
 import { Link, useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import { addRating } from '../services/ProductService';
+import { blueGrey } from '@mui/material/colors';
 
 function ProductItemLarge({ product }) {
 	const [amount, setAmount] = useState(0);
@@ -54,11 +55,14 @@ function ProductItemLarge({ product }) {
 	//------------------------------------
 
 	function onAddRating(rating) {
+		console.log(rating);
+		console.log(param);
 		ratingToSend.rating = rating;
+		console.log(rating);
 
 		// console.log(id.id);
 		// console.log(rating);
-		addRating(param.id, rating);
+		addRating(param, rating);
 	}
 
 	//------------------------------------
@@ -79,18 +83,22 @@ function ProductItemLarge({ product }) {
 		// lista av rating?
 
 		<Paper
-			sx={{ my: 4, p: 4, borderRadius: 2 }}
+			sx={{ my: 4, p: 4, borderRadius: 2, bgcolor: `${blueGrey[400]}` }}
 			elevation={3}>
-			<Card>
+			<Card sx={{ bgcolor: `${blueGrey[300]}` }}>
 				<Typography variant="h2">{product.title}</Typography>
 				<Typography>Pris: {product.price}</Typography>
 				<Typography>Produktbeskrivning: {product.description}</Typography>
 				<CardMedia
+					height="600px"
+					width="600px"
+					// minWidth="400"
+					// objectFit="center"
 					component="img"
 					image={product.imageUrl}
 				/>
 				<NumberInputIntroduction />
-				<CardActions>
+				<CardActions sx={{ justifyContent: 'space-between' }}>
 					<Rating
 						name="half-rating"
 						defaultValue={0}
