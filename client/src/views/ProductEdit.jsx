@@ -1,9 +1,7 @@
-import EditProduct from '../components/EditProduct';
 import { create, getOne, remove, update } from '../services/ProductService';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, TextField } from '@mui/material';
-import NumberInputIntroduction from '../components/NumberInputIntroduction';
 import Button from '@mui/material/Button';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SaveIcon from '@mui/icons-material/Save';

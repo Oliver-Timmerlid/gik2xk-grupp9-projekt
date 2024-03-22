@@ -48,14 +48,7 @@ async function getCart(id) {
 	try {
 		const cart = await db.cart.findOne({
 			where: { userId: id },
-			include: [
-				db.user,
-				db.product,
-				// {
-				// 	model: db.product,
-				// 	include: [db.cartRow],
-				// },
-			],
+			include: [db.user, db.product],
 		});
 		return createResponseSuccess(cart);
 	} catch (error) {

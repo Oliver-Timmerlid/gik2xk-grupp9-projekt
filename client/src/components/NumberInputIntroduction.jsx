@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import * as React from 'react';
 import {
 	Unstable_NumberInput as BaseNumberInput,
 	numberInputClasses,
 } from '@mui/base/Unstable_NumberInput';
 import { styled } from '@mui/system';
-import ProductItemLarge from './ProductItemLarge';
 
 const CustomNumberInput = React.forwardRef(function CustomNumberInput(
 	props,
@@ -34,13 +32,8 @@ const CustomNumberInput = React.forwardRef(function CustomNumberInput(
 });
 
 export default function NumberInputIntroduction() {
-	// const [value, setValue] = useState(1);
 	return (
 		<CustomNumberInput
-			// value={value}
-			// onChange={(event, newValue) => {
-			// 	setValue(newValue);
-			// }}
 			aria-label="Demo number input"
 			placeholder="Antal"
 			min={1}

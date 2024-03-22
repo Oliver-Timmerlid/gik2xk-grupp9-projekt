@@ -6,14 +6,7 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import { Link, Outlet } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
-import {
-	Box,
-	AppBar,
-	Toolbar,
-	Typography,
-	Button,
-	Container,
-} from '@mui/material';
+import { Box, AppBar, Toolbar, Button } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 
 function App() {
@@ -26,14 +19,6 @@ function App() {
 					position="fixed"
 					sx={{ bgcolor: `${blueGrey[400]}` }}>
 					<Toolbar style={{ justifyContent: 'space-between' }}>
-						{/* <IconButton
-							size="large"
-							edge="start"
-							color="inherit"
-							aria-label="menu"
-							sx={{ mr: 2 }}>
-							<MenuIcon />
-						</IconButton> */}
 						<div>
 							<Button
 								startIcon={<HomeIcon />}
@@ -65,17 +50,6 @@ function App() {
 									Skapa ny produkt
 								</Link>
 							</Button>
-							{/* 
-							<Button color="inherit">Mikael</Button>
-							<Button color="inherit">Elin</Button>
-
-							<Link
-								to="https://github.com/Oliver-Timmerlid"
-								className="link">
-								Oliver
-							</Link>
-
-							<Button color="inherit">Robin</Button> */}
 						</div>
 					</Toolbar>
 				</AppBar>

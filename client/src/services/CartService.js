@@ -1,7 +1,5 @@
 import axios from './api';
 
-//kopierad från produktsercicwA<
-
 // http://localhost:5000/carts/addProduct
 export async function addToCart(productToSend) {
 	try {

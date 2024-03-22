@@ -7,17 +7,6 @@ import ProductDetail from './views/ProductDetail.jsx';
 import Home from './views/Home.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
-import {
-	blueGrey,
-	deepPurple,
-	green,
-	grey,
-	orange,
-	purple,
-	red,
-	teal,
-} from '@mui/material/colors';
 
 const router = createBrowserRouter([
 	{
@@ -25,7 +14,6 @@ const router = createBrowserRouter([
 		element: <App />,
 		children: [
 			{
-				// path: '/products',
 				path: '/',
 				element: <Home />,
 			},
@@ -50,12 +38,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-		{
-			/* <ThemeProvider theme={theme}>
-			<CssBaseline />*/
-			<RouterProvider router={router} />
-			// </ThemeProvider>
-		}
-	</React.StrictMode>
+	<React.StrictMode>{<RouterProvider router={router} />}</React.StrictMode>
 );

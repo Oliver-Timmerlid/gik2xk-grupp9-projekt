@@ -1,7 +1,7 @@
 import ProductItemLarge from '../components/ProductItemLarge';
 import RatingList from '../components/RatingList';
 import { Grid } from '@mui/material';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getOne } from '../services/ProductService';
 
@@ -14,14 +14,11 @@ function ProductDetail() {
 		getOne(id).then((product) => setProduct(product));
 	}, [id]);
 
-	const navigate = useNavigate();
-
 	return product ? (
 		<>
 			<Grid
 				container
 				spacing={2}
-				// maxWidth="lg"
 				sx={{ p: 2 }}
 				width="50vw">
 				<Grid
@@ -39,7 +36,7 @@ function ProductDetail() {
 			</Grid>
 		</>
 	) : (
-		<h2>Test2</h2>
+		<h2>Kan ej hämta blomma</h2>
 	);
 }
 

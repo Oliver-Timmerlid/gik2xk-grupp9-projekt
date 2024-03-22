@@ -3,21 +3,14 @@ import {
 	Paper,
 	Card,
 	CardMedia,
-	CardHeader,
 	Typography,
-	Box,
 	IconButton,
 	CardActions,
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addToCart } from '../services/CartService';
-import HalfRating from './HalfRating';
-import axios from 'axios';
 import NumberInputIntroduction from './NumberInputIntroduction';
-import { unstable_useNumberInput as useNumberInput } from '@mui/base/unstable_useNumberInput';
-import NumberInput from './NumberInput';
 import EditIcon from '@mui/icons-material/Edit';
-import Button from '@mui/material/Button';
 import { Link, useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import { addRating } from '../services/ProductService';
@@ -50,18 +43,11 @@ function ProductItemLarge({ product }) {
 		productToSend.amount = amount;
 
 		addToCart(productToSend);
-		console.log(productToSend);
 	}
 	//------------------------------------
 
 	function onAddRating(rating) {
-		console.log(rating);
-		console.log(param);
 		ratingToSend.rating = rating;
-		console.log(rating);
-
-		// console.log(id.id);
-		// console.log(rating);
 		addRating(param, rating);
 	}
 
@@ -77,11 +63,6 @@ function ProductItemLarge({ product }) {
 	//------------------------------------
 
 	return (
-		// stor vy av produkt?
-		// rating komp under?
-		// knappar för lägg i korg, ändra produkt?
-		// lista av rating?
-
 		<Paper
 			sx={{ my: 4, p: 4, borderRadius: 2, bgcolor: `${blueGrey[400]}` }}
 			elevation={3}>
@@ -92,8 +73,6 @@ function ProductItemLarge({ product }) {
 				<CardMedia
 					height="600px"
 					width="600px"
-					// minWidth="400"
-					// objectFit="center"
 					component="img"
 					image={product.imageUrl}
 				/>

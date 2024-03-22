@@ -51,7 +51,6 @@ export async function update(product) {
 		e?.response ? console.log(e.response.data) : console.log(e);
 	}
 }
-// ej klar
 export async function remove(id) {
 	try {
 		const response = await axios.delete('/products', { data: { id } });
@@ -64,7 +63,7 @@ export async function remove(id) {
 		e?.response ? console.log(e.response.data) : console.log(e);
 	}
 }
-//klar AddRating
+
 export async function addRating(productId, rating) {
 	try {
 		const response = await axios.post(`/products/${productId.id}/addRating`, {

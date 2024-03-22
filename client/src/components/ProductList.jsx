@@ -13,17 +13,7 @@ function ProductList({ pathname }) {
 		});
 	}, [pathname]);
 
-	// const navigate = useNavigate();
-
-	// console.log(products);
-	// console.log(pathname);
-
 	return (
-		// göra grid av cards?
-		// göra varje card till en länk?
-		// zoom på hoover card?
-		//samma storlke
-
 		<Grid
 			container
 			spacing={2}>
@@ -42,7 +32,7 @@ function ProductList({ pathname }) {
 					</Grid>
 				))
 			) : (
-				<h3>Kunde inte hämta inlägg</h3>
+				<h3>Kunde inte hämta blommor</h3>
 			)}
 		</Grid>
 	);
